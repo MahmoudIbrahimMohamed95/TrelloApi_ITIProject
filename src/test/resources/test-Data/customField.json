@@ -1,0 +1,10 @@
+{
+  "customField-spaceName": "ITI",
+  "customField-boardName": "ITI-July",
+  "customField-boardPowerUp":"",
+  "customField-modelType":"board",
+  "customField-name": "projectField",
+  "customField-type": "date",
+  "customField-pos": "1",
+  "customField-invalidMessage":"Invalid id"
+}
