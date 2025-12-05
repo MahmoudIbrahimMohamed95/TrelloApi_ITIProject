@@ -1,0 +1,532 @@
+{
+	"info": {
+		"_postman_id": "42657256-54a8be86-8dc5-42a8-b625-a6cfcc07a4a3",
+		"name": "List",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "createWorkspace",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "74c9d7cf-ed78-4f09-8d84-2d6441470ea7",
+						"exec": [
+							"var jsonData = pm.response.json();",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Response time is less than 350ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(1200);",
+							"});",
+							"pm.test(\"verify Creating WorkSpace\", function () {",
+							"    pm.expect(jsonData.displayName).to.eql(pm.collectionVariables.get(\"WorkspaceDisplyName\"));",
+							"});",
+							"pm.collectionVariables.set(\"Workspace_ID\", jsonData.id);"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"id": "42657256-b3a81de4-4b32-471f-b29a-328c4ad5b1f5",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{BaseURI}}/{{WorkspacePath}}?displayName={{WorkspaceDisplyName}}&key={{APIKEY}}&token={{APITOKEN}}",
+					"host": [
+						"{{BaseURI}}"
+					],
+					"path": [
+						"{{WorkspacePath}}"
+					],
+					"query": [
+						{
+							"key": "displayName",
+							"value": "{{WorkspaceDisplyName}}"
+						},
+						{
+							"key": "key",
+							"value": "{{APIKEY}}"
+						},
+						{
+							"key": "token",
+							"value": "{{APITOKEN}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "createBoard",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "fbcc5a5e-3c06-4902-a819-f830338c3d47",
+						"exec": [
+							"var jsonData = pm.response.json();\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Response time is less than 1200ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(1200);\r",
+							"});\r",
+							"pm.test(\"verify Creating Board\", function () {\r",
+							"    pm.expect(jsonData.name).to.eql(pm.collectionVariables.get(\"BoardName\"));\r",
+							"    pm.expect(jsonData.idOrganization).to.eql(pm.collectionVariables.get(\"Workspace_ID\"));\r",
+							"});\r",
+							"pm.collectionVariables.set(\"Board_ID\", jsonData.id);\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"id": "42657256-798eca49-0291-45e3-b381-1352f7fbea83",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{BaseURI}}/{{BoardPath}}?name={{BoardName}}&key={{APIKEY}}&token={{APITOKEN}}&idOrganization={{Workspace_ID}}",
+					"host": [
+						"{{BaseURI}}"
+					],
+					"path": [
+						"{{BoardPath}}"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "{{BoardName}}"
+						},
+						{
+							"key": "key",
+							"value": "{{APIKEY}}"
+						},
+						{
+							"key": "token",
+							"value": "{{APITOKEN}}"
+						},
+						{
+							"key": "idOrganization",
+							"value": "{{Workspace_ID}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "createList",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "e8ab9cf2-913f-4f09-ba45-d8bd57ed4c6f",
+						"exec": [
+							" var jsonData = pm.response.json();\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Response time is less than 500ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+							"});\r",
+							"pm.test(\"verify Creating List\", function () {\r",
+							"    pm.expect(jsonData.idBoard).to.eql(pm.collectionVariables.get(\"Board_ID\"));\r",
+							"    pm.expect(jsonData.name).to.eql(pm.collectionVariables.get(\"ListName\"));\r",
+							"});\r",
+							"pm.collectionVariables.set(\"List_ID\", jsonData.id);"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"id": "42657256-e4451f25-20ba-4f28-8933-e2b70baeff5d",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{BaseURI}}/{{ListPath}}?name={{ListName}}&idBoard={{Board_ID}}&key={{APIKEY}}&token={{APITOKEN}}",
+					"host": [
+						"{{BaseURI}}"
+					],
+					"path": [
+						"{{ListPath}}"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "{{ListName}}"
+						},
+						{
+							"key": "idBoard",
+							"value": "{{Board_ID}}"
+						},
+						{
+							"key": "key",
+							"value": "{{APIKEY}}"
+						},
+						{
+							"key": "token",
+							"value": "{{APITOKEN}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "retriveList",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "34f18954-f718-4e3a-a2aa-0b0c9c160c19",
+						"exec": [
+							"var jsonData = pm.response.json();\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Response time is less than 1000ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+							"});\r",
+							"pm.test(\"verify retrivingList\", function () {\r",
+							"    pm.expect(jsonData.id).to.eql(pm.collectionVariables.get(\"List_ID\"));\r",
+							"    pm.expect(jsonData.name).to.eql(pm.collectionVariables.get(\"ListName\"));\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"id": "42657256-b0b95a4a-85e3-41cb-bb70-20a9195709c6",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BaseURI}}/{{ListPath}}/{{List_ID}}?key={{APIKEY}}&token={{APITOKEN}}",
+					"host": [
+						"{{BaseURI}}"
+					],
+					"path": [
+						"{{ListPath}}",
+						"{{List_ID}}"
+					],
+					"query": [
+						{
+							"key": "key",
+							"value": "{{APIKEY}}"
+						},
+						{
+							"key": "token",
+							"value": "{{APITOKEN}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "updateList",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "3d405292-c3ce-41be-ba45-34a6ae8a9117",
+						"exec": [
+							"var jsonData = pm.response.json();\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Response time is less than 1000ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+							"});\r",
+							"pm.test(\"verify updating List\", function () {\r",
+							"    pm.expect(jsonData.id).to.eql(pm.collectionVariables.get(\"List_ID\"));\r",
+							"    pm.expect(jsonData.name).to.eql(pm.collectionVariables.get(\"List_Newname\"));\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"id": "42657256-a7d98d54-e896-4d0f-a5d1-f72f6684593b",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "{{BaseURI}}/{{ListPath}}/{{List_ID}}?key={{APIKEY}}&token={{APITOKEN}}&name={{List_Newname}}",
+					"host": [
+						"{{BaseURI}}"
+					],
+					"path": [
+						"{{ListPath}}",
+						"{{List_ID}}"
+					],
+					"query": [
+						{
+							"key": "key",
+							"value": "{{APIKEY}}"
+						},
+						{
+							"key": "token",
+							"value": "{{APITOKEN}}"
+						},
+						{
+							"key": "name",
+							"value": "{{List_Newname}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "retriveListAfterUpdate",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c22c03df-b137-446f-aaba-85dacab7c927",
+						"exec": [
+							"var jsonData = pm.response.json();\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Response time is less than 1000ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+							"});\r",
+							"pm.test(\"verify Retrive after update\", function () {\r",
+							"    pm.expect(jsonData.id).to.eql(pm.collectionVariables.get(\"List_ID\"));\r",
+							"    pm.expect(jsonData.name).to.eql(pm.collectionVariables.get(\"List_Newname\"));\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"id": "42657256-c77be87c-842f-4a4d-a274-d4aa4571dbd1",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BaseURI}}/{{ListPath}}/{{List_ID}}?key={{APIKEY}}&token={{APITOKEN}}",
+					"host": [
+						"{{BaseURI}}"
+					],
+					"path": [
+						"{{ListPath}}",
+						"{{List_ID}}"
+					],
+					"query": [
+						{
+							"key": "key",
+							"value": "{{APIKEY}}"
+						},
+						{
+							"key": "token",
+							"value": "{{APITOKEN}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "deleteBoard",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "facbbefd-b147-43a7-a641-d047963e72e7",
+						"exec": [
+							"pm.test(\"Verify deleting Successfully and Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"id": "42657256-e6517b4c-2574-41ec-8623-1ab0623f897d",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{BaseURI}}/{{BoardPath}}{{Board_ID}}?key={{APIKEY}}&token={{APITOKEN}}",
+					"host": [
+						"{{BaseURI}}"
+					],
+					"path": [
+						"{{BoardPath}}{{Board_ID}}"
+					],
+					"query": [
+						{
+							"key": "key",
+							"value": "{{APIKEY}}"
+						},
+						{
+							"key": "token",
+							"value": "{{APITOKEN}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "deleteWorkspace",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "0a94dcc5-1b40-43e2-831c-4a03fd57c204",
+						"exec": [
+							"pm.test(\"verify Deleting Successfully \", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"id": "42657256-4d6a378b-54e5-4024-8b95-6350b592bd02",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{BaseURI}}/{{WorkspacePath}}/{{Workspace_ID}}?key={{APIKEY}}&token={{APITOKEN}}",
+					"host": [
+						"{{BaseURI}}"
+					],
+					"path": [
+						"{{WorkspacePath}}",
+						"{{Workspace_ID}}"
+					],
+					"query": [
+						{
+							"key": "key",
+							"value": "{{APIKEY}}"
+						},
+						{
+							"key": "token",
+							"value": "{{APITOKEN}}"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "92ce953b-f004-49da-9dd4-7eea8d7c3ed8",
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "70d92a9e-5bef-4e0a-afb8-91157b879e57",
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "WorkspacePath",
+			"value": ""
+		},
+		{
+			"key": "WorkspaceDisplyName",
+			"value": ""
+		},
+		{
+			"key": "Workspace_ID",
+			"value": ""
+		},
+		{
+			"key": "BoardName",
+			"value": ""
+		},
+		{
+			"key": "BoardPath",
+			"value": ""
+		},
+		{
+			"key": "Board_ID",
+			"value": ""
+		},
+		{
+			"key": "ListPath",
+			"value": ""
+		},
+		{
+			"key": "ListName",
+			"value": ""
+		},
+		{
+			"key": "List_ID",
+			"value": ""
+		},
+		{
+			"key": "List_Newname",
+			"value": ""
+		}
+	]
+}
