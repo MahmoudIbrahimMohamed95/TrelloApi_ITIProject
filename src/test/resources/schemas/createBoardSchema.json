@@ -1,0 +1,118 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Trello Board Schema",
+  "type": "object",
+  "required": [
+    "id",
+    "name",
+    "closed",
+    "prefs",
+    "labelNames",
+    "url",
+    "shortUrl"
+  ],
+  "properties": {
+    "id": { "type": "string" },
+    "name": { "type": "string" },
+    "desc": { "type": "string" },
+    "descData": { "type": ["object", "null"] },
+    "closed": { "type": "boolean" },
+    "idOrganization": { "type": ["string", "null"] },
+    "idEnterprise": { "type": ["string", "null"] },
+    "pinned": { "type": "boolean" },
+    "url": { "type": "string", "format": "uri" },
+    "shortUrl": { "type": "string", "format": "uri" },
+
+    "prefs": {
+      "type": "object",
+      "required": ["permissionLevel", "background"],
+      "properties": {
+        "permissionLevel": { "type": "string" },
+        "hideVotes": { "type": "boolean" },
+        "voting": { "type": "string" },
+        "comments": { "type": "string" },
+        "invitations": { "type": "string" },
+        "selfJoin": { "type": "boolean" },
+        "cardCovers": { "type": "boolean" },
+        "showCompleteStatus": { "type": "boolean" },
+        "cardCounts": { "type": "boolean" },
+        "isTemplate": { "type": "boolean" },
+        "cardAging": { "type": "string" },
+        "calendarFeedEnabled": { "type": "boolean" },
+        "hiddenPluginBoardButtons": {
+          "type": "array",
+          "items": {}
+        },
+        "switcherViews": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["viewType", "enabled"],
+            "properties": {
+              "viewType": { "type": "string" },
+              "enabled": { "type": "boolean" }
+            }
+          }
+        },
+        "autoArchive": { "type": ["string", "null"] },
+        "background": { "type": "string" },
+        "backgroundColor": { "type": ["string", "null"] },
+        "backgroundDarkColor": { "type": ["string", "null"] },
+        "backgroundImage": { "type": ["string", "null"] },
+        "backgroundDarkImage": { "type": ["string", "null"] },
+        "backgroundImageScaled": { "type": ["array", "null"] },
+        "backgroundTile": { "type": "boolean" },
+        "backgroundBrightness": { "type": ["string", "null"] },
+        "sharedSourceUrl": { "type": ["string", "null"] },
+        "backgroundBottomColor": { "type": ["string", "null"] },
+        "backgroundTopColor": { "type": ["string", "null"] },
+        "canBePublic": { "type": "boolean" },
+        "canBeEnterprise": { "type": "boolean" },
+        "canBeOrg": { "type": "boolean" },
+        "canBePrivate": { "type": "boolean" },
+        "canInvite": { "type": "boolean" }
+      }
+    },
+
+    "labelNames": {
+      "type": "object",
+      "properties": {
+        "green": { "type": "string" },
+        "yellow": { "type": "string" },
+        "orange": { "type": "string" },
+        "red": { "type": "string" },
+        "purple": { "type": "string" },
+        "blue": { "type": "string" },
+        "sky": { "type": "string" },
+        "lime": { "type": "string" },
+        "pink": { "type": "string" },
+        "black": { "type": "string" },
+        "green_dark": { "type": "string" },
+        "yellow_dark": { "type": "string" },
+        "orange_dark": { "type": "string" },
+        "red_dark": { "type": "string" },
+        "purple_dark": { "type": "string" },
+        "blue_dark": { "type": "string" },
+        "sky_dark": { "type": "string" },
+        "lime_dark": { "type": "string" },
+        "pink_dark": { "type": "string" },
+        "black_dark": { "type": "string" },
+        "green_light": { "type": "string" },
+        "yellow_light": { "type": "string" },
+        "orange_light": { "type": "string" },
+        "red_light": { "type": "string" },
+        "purple_light": { "type": "string" },
+        "blue_light": { "type": "string" },
+        "sky_light": { "type": "string" },
+        "lime_light": { "type": "string" },
+        "pink_light": { "type": "string" },
+        "black_light": { "type": "string" }
+      },
+      "additionalProperties": false
+    },
+
+    "limits": {
+      "type": "object"
+    }
+  }
+}

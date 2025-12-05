@@ -1,0 +1,6 @@
+{
+  "webhooks-spaceName": "ITI",
+  "webhooks-boardname": "ITI-July",
+  "webhooks-boardPowerUp":"all",
+  "webhooks-callbackURL": "https://webhook.site/354b137f-32e3-4499-9ebf-ef164ee0b38d"
+}
