@@ -1,0 +1,390 @@
+{
+	"info": {
+		"_postman_id": "42657256-8686f46e-15cb-4d91-b5c6-e1d849d5f160",
+		"name": "Organization",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "createWorkspace",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b5f51145-2d2c-491f-a594-ec160636d894",
+						"exec": [
+							"var jsonData = pm.response.json();",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Response time is less than 350ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(1200);",
+							"});",
+							"pm.test(\"verify Creating WorkSpace\", function () {",
+							"    // Remove any extra quotes from displayName",
+							"    var responseDisplayName = jsonData.displayName;",
+							"    if (typeof responseDisplayName === 'string') {",
+							"        responseDisplayName = responseDisplayName.replace(/^\\\\\"|\\\\\"$/g, '');",
+							"    }",
+							"    var expectedDisplayName =  pm.collectionVariables.get(\"WorkspaceDisplyName\");",
+							"    pm.expect(responseDisplayName).to.eql(expectedDisplayName);",
+							"});",
+							"pm.collectionVariables.set(\"Workspace_ID\", jsonData.id);",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"id": "42657256-a9265372-3bd5-4b62-9c4d-4e067b1cf068",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{BaseURI}}/{{PathParameter}}?displayName={{WorkspaceDisplyName}}&key={{APIKEY}}&token={{APITOKEN}}",
+					"host": [
+						"{{BaseURI}}"
+					],
+					"path": [
+						"{{PathParameter}}"
+					],
+					"query": [
+						{
+							"key": "displayName",
+							"value": "{{WorkspaceDisplyName}}"
+						},
+						{
+							"key": "key",
+							"value": "{{APIKEY}}"
+						},
+						{
+							"key": "token",
+							"value": "{{APITOKEN}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "retriveWorkspace",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "aaa8b0fc-01ef-47ae-8df8-8f0c725b656b",
+						"exec": [
+							"  var jsonData = pm.response.json();\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Response time is less than 1000ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+							"});\r",
+							"pm.test(\"verify retriving workspace\", function () {\r",
+							"    pm.expect(jsonData.id).to.eql(pm.collectionVariables.get(\"Workspace_ID\"));\r",
+							"    pm.expect(jsonData.displayName).to.eql(pm.collectionVariables.get(\"WorkspaceDisplyName\"));\r",
+							"    });\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"id": "42657256-3b3c1938-39cc-43f7-84e8-2d03554bd5bf",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BaseURI}}/{{PathParameter}}/{{Workspace_ID}}?key={{APIKEY}}&token={{APITOKEN}}",
+					"host": [
+						"{{BaseURI}}"
+					],
+					"path": [
+						"{{PathParameter}}",
+						"{{Workspace_ID}}"
+					],
+					"query": [
+						{
+							"key": "key",
+							"value": "{{APIKEY}}"
+						},
+						{
+							"key": "token",
+							"value": "{{APITOKEN}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "updateWorkspace",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f53ca855-7189-419a-b673-9936031cd549",
+						"exec": [
+							"  var jsonData = pm.response.json();\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Response time is less than 1000ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+							"});\r",
+							"pm.test(\"verify updating workspace\", function () {\r",
+							"    pm.expect(jsonData.id).to.eql(pm.collectionVariables.get(\"Workspace_ID\"));\r",
+							"    pm.expect(jsonData.displayName).to.eql(pm.collectionVariables.get(\"Workspace_Newname\"));\r",
+							"    });\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"id": "42657256-a9ae1137-e2f9-4425-a028-01ec14a69c09",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "{{BaseURI}}/{{PathParameter}}/{{Workspace_ID}}?key={{APIKEY}}&token={{APITOKEN}}&displayName={{Workspace_Newname}}",
+					"host": [
+						"{{BaseURI}}"
+					],
+					"path": [
+						"{{PathParameter}}",
+						"{{Workspace_ID}}"
+					],
+					"query": [
+						{
+							"key": "key",
+							"value": "{{APIKEY}}"
+						},
+						{
+							"key": "token",
+							"value": "{{APITOKEN}}"
+						},
+						{
+							"key": "displayName",
+							"value": "{{Workspace_Newname}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "retriveWorkspaceAfterUpdating",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7297b583-f54d-4434-ac56-7bfbdb3a3244",
+						"exec": [
+							"  var jsonData = pm.response.json();\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Response time is less than 1000ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+							"});\r",
+							"pm.test(\"verify retriving workspace after updating\", function () {\r",
+							"    pm.expect(jsonData.id).to.eql(pm.collectionVariables.get(\"Workspace_ID\"));\r",
+							"    pm.expect(jsonData.displayName).to.eql(pm.collectionVariables.get(\"Workspace_Newname\"));\r",
+							"    });"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"id": "42657256-b2bbd204-d24a-4b89-8bf3-9e4de45c67b9",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BaseURI}}/{{PathParameter}}/{{Workspace_ID}}?key={{APIKEY}}&token={{APITOKEN}}",
+					"host": [
+						"{{BaseURI}}"
+					],
+					"path": [
+						"{{PathParameter}}",
+						"{{Workspace_ID}}"
+					],
+					"query": [
+						{
+							"key": "key",
+							"value": "{{APIKEY}}"
+						},
+						{
+							"key": "token",
+							"value": "{{APITOKEN}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "deleteWorkspace",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "0a94dcc5-1b40-43e2-831c-4a03fd57c204",
+						"exec": [
+							"pm.test(\"verify Deleting Successfully \", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"id": "42657256-4b61355d-76fe-4567-8e15-5c7f58891127",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{BaseURI}}/{{PathParameter}}/{{Workspace_ID}}?key={{APIKEY}}&token={{APITOKEN}}",
+					"host": [
+						"{{BaseURI}}"
+					],
+					"path": [
+						"{{PathParameter}}",
+						"{{Workspace_ID}}"
+					],
+					"query": [
+						{
+							"key": "key",
+							"value": "{{APIKEY}}"
+						},
+						{
+							"key": "token",
+							"value": "{{APITOKEN}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "retriveWorkspaceDeleting",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "10474423-9622-4607-9668-93b15e540983",
+						"exec": [
+							"pm.test(\"verify retriving after deleting\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"id": "42657256-942c8709-ce0a-480d-8bb5-f9657f956e60",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BaseURI}}/{{PathParameter}}/{{Workspace_ID}}?key={{APIKEY}}&token={{APITOKEN}}",
+					"host": [
+						"{{BaseURI}}"
+					],
+					"path": [
+						"{{PathParameter}}",
+						"{{Workspace_ID}}"
+					],
+					"query": [
+						{
+							"key": "key",
+							"value": "{{APIKEY}}"
+						},
+						{
+							"key": "token",
+							"value": "{{APITOKEN}}"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "36b067bc-88e7-4c41-acaa-51414af21a04",
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "708f6fd0-9432-4512-9f58-38ba79e0e044",
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "PathParameter",
+			"value": ""
+		},
+		{
+			"key": "WorkspaceDisplyName",
+			"value": ""
+		},
+		{
+			"key": "Workspace_ID",
+			"value": ""
+		},
+		{
+			"key": "Workspace_Newname",
+			"value": ""
+		}
+	]
+}
